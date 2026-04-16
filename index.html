@@ -174,25 +174,11 @@
       animation: cardIn 0.7s cubic-bezier(.22, .68, 0, 1.2) both;
     }
 
-    .card:nth-child(1) {
-      animation-delay: 0.55s;
-    }
-
-    .card:nth-child(2) {
-      animation-delay: 0.65s;
-    }
-
-    .card:nth-child(3) {
-      animation-delay: 0.75s;
-    }
-
-    .card:nth-child(4) {
-      animation-delay: 0.85s;
-    }
-
-    .card:nth-child(5) {
-      animation-delay: 0.95s;
-    }
+    .card:nth-child(1) { animation-delay: 0.55s; }
+    .card:nth-child(2) { animation-delay: 0.65s; }
+    .card:nth-child(3) { animation-delay: 0.75s; }
+    .card:nth-child(4) { animation-delay: 0.85s; }
+    .card:nth-child(5) { animation-delay: 0.95s; }
 
     .card::before {
       content: '';
@@ -210,9 +196,7 @@
       border-color: rgba(240, 180, 41, 0.4);
     }
 
-    .card:hover::before {
-      opacity: 1;
-    }
+    .card:hover::before { opacity: 1; }
 
     .card-img-wrap {
       position: relative;
@@ -255,9 +239,7 @@
       z-index: 2;
     }
 
-    .card-info {
-      padding: 14px 14px 16px;
-    }
+    .card-info { padding: 14px 14px 16px; }
 
     .card-name {
       font-family: 'Bebas Neue', sans-serif;
@@ -294,9 +276,7 @@
       transition: opacity 0.2s;
     }
 
-    .card:hover .card-cta {
-      opacity: 1;
-    }
+    .card:hover .card-cta { opacity: 1; }
 
     .card-cta svg {
       width: 10px;
@@ -304,9 +284,7 @@
       transition: transform 0.2s;
     }
 
-    .card:hover .card-cta svg {
-      transform: translateX(3px);
-    }
+    .card:hover .card-cta svg { transform: translateX(3px); }
 
     /* ─── DETAIL PAGE ─── */
     #detail-page {
@@ -321,10 +299,7 @@
       transition: opacity 0.5s ease;
     }
 
-    #detail-page.active {
-      opacity: 1;
-      pointer-events: all;
-    }
+    #detail-page.active { opacity: 1; pointer-events: all; }
 
     .detail-backdrop {
       position: absolute;
@@ -345,14 +320,9 @@
       transition: transform 0.6s cubic-bezier(.22, .68, 0, 1.2);
     }
 
-    #detail-page.active .detail-content {
-      transform: translateY(0) scale(1);
-    }
+    #detail-page.active .detail-content { transform: translateY(0) scale(1); }
 
-    .detail-img-side {
-      flex: 0 0 320px;
-      position: relative;
-    }
+    .detail-img-side { flex: 0 0 320px; position: relative; }
 
     .detail-img-frame {
       position: relative;
@@ -402,9 +372,7 @@
       white-space: nowrap;
     }
 
-    .detail-text-side {
-      flex: 1;
-    }
+    .detail-text-side { flex: 1; }
 
     .detail-number {
       font-family: 'Bebas Neue', sans-serif;
@@ -481,9 +449,7 @@
       margin-bottom: 28px;
     }
 
-    .stat-item {
-      text-align: center;
-    }
+    .stat-item { text-align: center; }
 
     .stat-val {
       font-family: 'Bebas Neue', sans-serif;
@@ -500,8 +466,8 @@
       margin-top: 3px;
     }
 
-    /* ─── BACK BUTTON ─── */
-    .back-btn {
+    /* ─── BACK BUTTONS ─── */
+    .back-btn, .back-btn-internal {
       position: fixed;
       top: 24px;
       left: 24px;
@@ -521,10 +487,13 @@
       align-items: center;
       gap: 8px;
       backdrop-filter: blur(10px);
+      transition: opacity 0.4s, transform 0.4s, background 0.2s;
+    }
+
+    .back-btn {
       opacity: 0;
       pointer-events: none;
       transform: translateX(-20px);
-      transition: opacity 0.4s, transform 0.4s, background 0.2s;
     }
 
     .back-btn.visible {
@@ -533,8 +502,8 @@
       transform: translateX(0);
     }
 
-    .back-btn:hover {
-      background: rgba(240, 180, 41, 0.22);
+    .back-btn:hover, .back-btn-internal:hover { 
+      background: rgba(240, 180, 41, 0.22); 
     }
 
     /* ─── NAV DOTS ─── */
@@ -551,10 +520,7 @@
       transition: opacity 0.4s;
     }
 
-    .nav-dots.visible {
-      opacity: 1;
-      pointer-events: all;
-    }
+    .nav-dots.visible { opacity: 1; pointer-events: all; }
 
     .nav-dot {
       width: 8px;
@@ -566,12 +532,9 @@
       transition: background 0.2s, transform 0.2s;
     }
 
-    .nav-dot.active {
-      background: var(--gold);
-      transform: scale(1.4);
-    }
+    .nav-dot.active { background: var(--gold); transform: scale(1.4); }
 
-    /* ─── HAMBURGER MENU & SIDEBAR ─── */
+    /* ─── HAMBURGER MENU & SIDEBAR (DROPDOWN) ─── */
     #menu-btn {
       position: fixed;
       top: 30px;
@@ -596,17 +559,9 @@
       transition: 0.3s ease;
     }
 
-    #menu-btn.active span:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    #menu-btn.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    #menu-btn.active span:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
+    #menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    #menu-btn.active span:nth-child(2) { opacity: 0; }
+    #menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     #side-menu {
       position: fixed;
@@ -623,9 +578,7 @@
       box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
     }
 
-    #side-menu.open {
-      right: 0;
-    }
+    #side-menu.open { right: 0; }
 
     #menu-overlay {
       position: fixed;
@@ -638,29 +591,47 @@
       backdrop-filter: blur(3px);
     }
 
-    #menu-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
+    #menu-overlay.open { opacity: 1; pointer-events: all; }
 
-    .menu-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem;
+    /* CSS Untuk Judul Menu (Bisa diklik) */
+    .menu-item {
       color: var(--gold);
-      letter-spacing: 0.05em;
-      margin-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(240, 180, 41, 0.1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color 0.3s;
+      margin-top: 15px;
     }
 
-    .menu-list {
-      list-style: none;
+    .menu-item:hover { color: #fff; }
+    .menu-item .arrow { font-size: 0.8rem; transition: transform 0.3s; }
+    .menu-item.open .arrow { transform: rotate(180deg); }
+
+    /* CSS Untuk Isi Submenu (Disembunyikan awalnya) */
+    .submenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      display: flex;
+      flex-direction: column;
     }
 
-    .menu-list li {
-      font-size: 1.1rem;
-      padding: 12px 0;
+    .submenu.open { 
+      max-height: 300px; 
+      padding-top: 10px; 
+      padding-bottom: 10px; 
+    }
+
+    .submenu div {
       color: var(--text);
+      padding: 12px 15px;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: color 0.2s, transform 0.2s;
       display: flex;
@@ -668,7 +639,7 @@
       gap: 10px;
     }
 
-    .menu-list li::before {
+    .submenu div::before {
       content: '✦';
       color: var(--gold);
       font-size: 0.8rem;
@@ -677,15 +648,8 @@
       transform: translateX(-10px);
     }
 
-    .menu-list li:hover {
-      color: var(--gold);
-      transform: translateX(5px);
-    }
-
-    .menu-list li:hover::before {
-      opacity: 1;
-      transform: translateX(0);
-    }
+    .submenu div:hover { color: var(--gold); transform: translateX(5px); }
+    .submenu div:hover::before { opacity: 1; transform: translateX(0); }
 
     /* ─── GALLERY PAGE ─── */
     #gallery-page {
@@ -700,27 +664,11 @@
       padding: 80px 20px 40px;
     }
 
-    #gallery-page.active {
-      opacity: 1;
-      pointer-events: all;
-    }
+    #gallery-page.active { opacity: 1; pointer-events: all; }
 
-    .gallery-header {
-      text-align: center;
-      margin-bottom: 50px;
-      animation: fadeDown 0.8s ease both;
-    }
-
-    .gallery-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 6vw, 4.5rem);
-      color: #fff;
-      letter-spacing: 0.05em;
-    }
-
-    .gallery-title span {
-      color: var(--gold);
-    }
+    .gallery-header { text-align: center; margin-bottom: 50px; animation: fadeDown 0.8s ease both; }
+    .gallery-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 4.5rem); color: #fff; letter-spacing: 0.05em; }
+    .gallery-title span { color: var(--gold); }
 
     .gallery-grid {
       display: grid;
@@ -756,17 +704,117 @@
       transition: 0.3s;
     }
 
-    .gallery-item:hover .gallery-img {
-      filter: grayscale(0%);
+    .gallery-item:hover .gallery-img { filter: grayscale(0%); }
+
+    .gallery-date { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.1em; text-align: center; text-transform: uppercase; }
+
+    /* ─── ROULETTE PAGE ─── */
+    #roulette-page {
+      position: fixed;
+      inset: 0;
+      background: var(--dark);
+      z-index: 400;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 20px 40px;
+      overflow-y: auto;
     }
 
-    .gallery-date {
-      font-size: 0.75rem;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-      text-align: center;
-      text-transform: uppercase;
+    #roulette-page.active { opacity: 1; pointer-events: all; }
+
+    .roulette-container {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeUp 0.6s ease both;
     }
+
+    #roulette-input {
+      width: 100%;
+      background: rgba(8,12,16,0.5);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 15px;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      resize: none;
+      margin-bottom: 25px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    #roulette-input:focus { border-color: var(--gold); }
+
+    .wheel-wrapper {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin-bottom: 30px;
+    }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #fff;
+      z-index: 10;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    }
+
+    #roulette-canvas {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow: 0 0 0 5px rgba(240,180,41,0.2), 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    #spin-btn {
+      background: linear-gradient(135deg, var(--gold), #ff9f1c);
+      color: var(--dark);
+      border: none;
+      padding: 12px 40px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    #spin-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(240,180,41,0.3);
+    }
+
+    #spin-btn:disabled {
+      background: #444;
+      color: #888;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    #roulette-result {
+      margin-top: 25px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(240,180,41,0.5);
+      letter-spacing: 0.05em;
+      display: none;
+      animation: fadeUp 0.5s ease both;
+    }
+    
+    #roulette-result span { color: var(--gold); }
 
     /* ─── FOOTER ─── */
     footer {
@@ -781,116 +829,33 @@
     }
 
     /* ─── ANIMATIONS ─── */
-    @keyframes fadeDown {
-      from {
-        opacity: 0;
-        transform: translateY(-16px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes cardIn {
-      from {
-        opacity: 0;
-        transform: translateY(40px) scale(0.9);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    @keyframes scaleX {
-      from {
-        transform: scaleX(0);
-        opacity: 0;
-      }
-
-      to {
-        transform: scaleX(1);
-        opacity: 1;
-      }
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(40px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes scaleX { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
 
     /* ─── SHIMMER SCAN LINE ─── */
     .card::after {
       content: '';
       position: absolute;
-      top: -100%;
-      left: 0;
-      right: 0;
-      height: 60%;
+      top: -100%; left: 0; right: 0; height: 60%;
       background: linear-gradient(to bottom, transparent, rgba(240, 180, 41, 0.05), transparent);
       transition: top 0.6s ease;
       z-index: 2;
     }
-
-    .card:hover::after {
-      top: 140%;
-    }
+    .card:hover::after { top: 140%; }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
-      .card {
-        flex: 0 0 calc(50% - 10px);
-        max-width: none;
-      }
-
-      .detail-content {
-        flex-direction: column;
-        gap: 30px;
-        width: 95%;
-        max-height: 90vh;
-        overflow-y: auto;
-        padding: 20px;
-      }
-
-      .detail-img-side {
-        flex: none;
-        width: 200px;
-        align-self: center;
-      }
-
-      .detail-name {
-        font-size: 2.8rem;
-      }
+      .card { flex: 0 0 calc(50% - 10px); max-width: none; }
+      .detail-content { flex-direction: column; gap: 30px; width: 95%; max-height: 90vh; overflow-y: auto; padding: 20px; }
+      .detail-img-side { flex: none; width: 200px; align-self: center; }
+      .detail-name { font-size: 2.8rem; }
     }
-
     @media (max-width: 480px) {
-      .card {
-        flex: 0 0 calc(50% - 8px);
-      }
-
-      .members-row {
-        gap: 12px;
-      }
-
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
+      .card { flex: 0 0 calc(50% - 8px); }
+      .members-row { gap: 12px; }
+      .gallery-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -908,30 +873,65 @@
   <div id="menu-overlay" onclick="toggleMenu()"></div>
 
   <div id="side-menu">
-    <div class="menu-title">Momen Ketika :</div>
-    <ul class="menu-list">
-      <li onclick="openGallery('Nongki')">Nongki</li>
-      <li onclick="openGallery('Bandung')">Bandung</li>
-      <li onclick="openGallery('Jakarta')">Jakarta</li>
-      <li onclick="openGallery('Jepang')">Jepang</li>
-      <li onclick="openGallery('Oyo')">Oyo</li>
-    </ul>
+    <div class="menu-item" onclick="toggleSubmenu('momen-sub')">
+      MOMEN KETIKA
+      <span class="arrow">▼</span>
+    </div>
+    <div class="submenu" id="momen-sub">
+      <div onclick="openGallery('Nongki')">Nongki</div>
+      <div onclick="openGallery('Bandung')">Bandung</div>
+      <div onclick="openGallery('Jakarta')">Jakarta</div>
+      <div onclick="openGallery('Jepang')">Jepang</div>
+      <div onclick="openGallery('Oyo')">Oyo</div>
+    </div>
+
+    <div class="menu-item" onclick="toggleSubmenu('roulette-sub')">
+      FITUR SPESIAL
+      <span class="arrow">▼</span>
+    </div>
+    <div class="submenu" id="roulette-sub">
+      <div onclick="openRoulette()">Roulette Penentu</div>
+    </div>
   </div>
 
   <div id="gallery-page">
-    <button class="back-btn" id="gallery-back" onclick="closeGallery()" style="top: 24px;">
+    <button class="back-btn-internal" onclick="closeGallery()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <path d="M19 12H5M5 12l7-7M5 12l7 7" />
       </svg>
       Kembali
     </button>
-
     <div class="gallery-header">
       <div class="hero-tag">Gallery</div>
       <h2 class="gallery-title" id="gallery-title">Momen: <span>Ngebakso</span></h2>
     </div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
 
-    <div class="gallery-grid" id="gallery-grid">
+  <div id="roulette-page">
+    <button class="back-btn-internal" onclick="closeRoulette()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M19 12H5M5 12l7-7M5 12l7 7" />
+      </svg>
+      Kembali
+    </button>
+    
+    <div class="roulette-container">
+      <h2 class="gallery-title">Roulette <span>Penentu</span></h2>
+      <p class="hero-sub" style="margin-bottom: 25px;">Masukkan pilihanmu di bawah (pisahkan dengan Enter)</p>
+      
+      <textarea id="roulette-input" rows="4" placeholder="Ketik opsi di sini...">Nongkrong
+Main Game
+Tidur
+Makan Bakso</textarea>
+      
+      <div class="wheel-wrapper">
+        <div class="wheel-pointer">▼</div>
+        <canvas id="roulette-canvas" width="300" height="300"></canvas>
+      </div>
+      
+      <button id="spin-btn" onclick="spin()">SPIN SEKARANG</button>
+      <div id="roulette-result">Terpilih: <span>-</span></div>
     </div>
   </div>
 
@@ -954,21 +954,18 @@
 
     <p class="members-label">— Meet The Members —</p>
 
-    <div class="members-row" id="members-row">
-    </div>
+    <div class="members-row" id="members-row"></div>
 
     <footer>WACANA Crew &nbsp;·&nbsp; Made with 🔥</footer>
   </div>
 
   <div id="detail-page">
     <div class="detail-backdrop" onclick="closeDetail()"></div>
-    <div class="detail-content" id="detail-content">
-    </div>
+    <div class="detail-content" id="detail-content"></div>
   </div>
 
   <script>
     /* ─── DATA GALERI FOTO ─── */
-    // Kamu tinggal tambah/edit foto dan tanggalnya di dalam array ini
     const galleryData = {
       'Nongki': [
         { img: 'img mk/mie/n1.jpeg', date: '02 Februari 2026' },
@@ -997,26 +994,27 @@
       document.getElementById('menu-btn').classList.toggle('active');
     }
 
-    function openGallery(momenId) {
-      // Tutup menu sidebar
-      toggleMenu();
+    // Fungsi untuk Dropdown/Accordion
+    function toggleSubmenu(id) {
+      const submenu = document.getElementById(id);
+      const menuItem = submenu.previousElementSibling;
+      submenu.classList.toggle('open');
+      menuItem.classList.toggle('open');
+    }
 
-      // Ambil data foto berdasarkan momen
+    function openGallery(momenId) {
+      toggleMenu();
       const data = galleryData[momenId] || [];
       const grid = document.getElementById('gallery-grid');
 
-  
-      // Set judul halaman galeri (hilangkan '-' / '_' dan ubah jadi huruf besar depannya)
       const titleFormat = momenId.charAt(0).toUpperCase() + momenId.slice(1);
       document.getElementById('gallery-title').innerHTML = `Momen: <span>${titleFormat}</span>`;
 
-      // Render foto ke dalam grid
       grid.innerHTML = '';
       if (data.length === 0) {
         grid.innerHTML = '<p style="color:var(--sub); text-align:center; grid-column: 1 / -1;">Foto belum ditambahkan.</p>';
       } else {
         data.forEach((item, index) => {
-          // Efek delay animasi biar munculnya satu-satu
           const animDelay = (index * 0.1) + 's';
           grid.innerHTML += `
           <div class="gallery-item" style="animation-delay: ${animDelay}">
@@ -1027,11 +1025,9 @@
         });
       }
 
-      // Tampilkan halaman galeri
       document.getElementById('gallery-page').classList.add('active');
       document.getElementById('main-page').style.opacity = '0';
       document.getElementById('main-page').style.pointerEvents = 'none';
-      document.getElementById('gallery-back').classList.add('visible');
     }
 
     function closeGallery() {
@@ -1039,6 +1035,113 @@
       document.getElementById('main-page').style.opacity = '1';
       document.getElementById('main-page').style.pointerEvents = 'all';
     }
+
+    /* ─── ROULETTE LOGIC ─── */
+    let options = [];
+    let startAngle = 0;
+    let spinTimeout = null;
+    let spinTime = 0;
+    let spinTimeTotal = 0;
+    let isSpinning = false;
+    let spinAngleStart = 0;
+
+    function openRoulette() {
+      toggleMenu();
+      document.getElementById('roulette-page').classList.add('active');
+      document.getElementById('main-page').style.opacity = '0';
+      document.getElementById('main-page').style.pointerEvents = 'none';
+      drawWheel();
+    }
+
+    function closeRoulette() {
+      document.getElementById('roulette-page').classList.remove('active');
+      document.getElementById('main-page').style.opacity = '1';
+      document.getElementById('main-page').style.pointerEvents = 'all';
+    }
+
+    function getOptions() {
+      const text = document.getElementById("roulette-input").value;
+      options = text.split('\n').map(opt => opt.trim()).filter(opt => opt !== '');
+      if (options.length === 0) options = ["Isi", "Dulu", "Opsi"];
+    }
+
+    function drawWheel() {
+      getOptions();
+      const canvas = document.getElementById("roulette-canvas");
+      if(!canvas.getContext) return;
+      const ctx = canvas.getContext("2d");
+      const arc = Math.PI / (options.length / 2);
+
+      ctx.clearRect(0,0,300,300);
+      for(let i = 0; i < options.length; i++) {
+        const angle = startAngle + i * arc;
+        
+        ctx.fillStyle = i % 2 === 0 ? "#141e2e" : "#f0b429";
+        
+        ctx.beginPath();
+        ctx.arc(150, 150, 145, angle, angle + arc, false);
+        ctx.arc(150, 150, 0, angle + arc, angle, true);
+        ctx.fill();
+
+        ctx.save();
+        ctx.fillStyle = i % 2 === 0 ? "#f0b429" : "#141e2e";
+        ctx.translate(150 + Math.cos(angle + arc / 2) * 90, 150 + Math.sin(angle + arc / 2) * 90);
+        ctx.rotate(angle + arc / 2 + Math.PI / 2);
+        
+        const text = options[i];
+        ctx.font = 'bold 16px Outfit';
+        ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+        ctx.restore();
+      }
+    }
+
+    function rotateWheel() {
+      spinTime += 30;
+      if(spinTime >= spinTimeTotal) {
+        stopRotateWheel();
+        return;
+      }
+      const spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+      startAngle += (spinAngle * Math.PI / 180);
+      drawWheel();
+      spinTimeout = requestAnimationFrame(rotateWheel);
+    }
+
+    function stopRotateWheel() {
+      cancelAnimationFrame(spinTimeout);
+      const degrees = startAngle * 180 / Math.PI + 90;
+      const arcd = 360 / options.length;
+      let index = Math.floor((360 - degrees % 360) / arcd);
+      
+      const resultDiv = document.getElementById('roulette-result');
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = `Terpilih: <br><span>${options[index]}</span>`;
+      
+      document.getElementById('spin-btn').disabled = false;
+      document.getElementById('spin-btn').innerText = "SPIN LAGI";
+      isSpinning = false;
+    }
+
+    function easeOut(t, b, c, d) {
+      const ts = (t/=d)*t;
+      const tc = ts*t;
+      return b+c*(tc + -3*ts + 3*t);
+    }
+
+    function spin() {
+      if(isSpinning) return;
+      isSpinning = true;
+      document.getElementById('spin-btn').disabled = true;
+      document.getElementById('spin-btn').innerText = "MENENTUKAN...";
+      document.getElementById('roulette-result').style.display = 'none';
+      
+      spinAngleStart = Math.random() * 10 + 10;
+      spinTime = 0;
+      spinTimeTotal = Math.random() * 3000 + 4000;
+      rotateWheel();
+    }
+
+    document.getElementById('roulette-input').addEventListener('input', drawWheel);
 
     /* ─── MEMBERS DATA ─── */
     const members = [
@@ -1171,7 +1274,6 @@
       </div>
     `;
 
-      // Update dots
       document.querySelectorAll('.nav-dot').forEach((d, i) => {
         d.classList.toggle('active', i === index);
       });
@@ -1193,7 +1295,6 @@
 
     // Keyboard nav
     document.addEventListener('keydown', e => {
-      // Navigasi untuk detail profile
       const dp = document.getElementById('detail-page');
       if (dp.classList.contains('active')) {
         if (e.key === 'ArrowRight') openDetail((currentIndex + 1) % members.length);
@@ -1201,11 +1302,11 @@
         if (e.key === 'Escape') closeDetail();
       }
 
-      // Exit gallery
       const gp = document.getElementById('gallery-page');
-      if (gp.classList.contains('active') && e.key === 'Escape') {
-        closeGallery();
-      }
+      if (gp.classList.contains('active') && e.key === 'Escape') closeGallery();
+      
+      const rp = document.getElementById('roulette-page');
+      if (rp.classList.contains('active') && e.key === 'Escape') closeRoulette();
     });
 
     /* ─── PARTICLE CANVAS ─── */
