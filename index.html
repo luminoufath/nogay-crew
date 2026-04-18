@@ -1043,10 +1043,10 @@
       inset: 0;
       background: #000;
       z-index: 9999;
-      /* Posisi tengah-tengah */
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
     }
 
     #gojo-video {
@@ -1054,55 +1054,46 @@
       top: 0;
       left: 0;
       width: 100vw;
+      /* Maksa lebar mentok kiri-kanan layar */
       height: 100vh;
+      /* Maksa tinggi mentok atas-bawah layar */
       object-fit: cover;
-      z-index: 1;
-      /* KUNCI BUAT ANDROID: Paksa video ada di lapisan bawah */
+      /* INI KUNCINYA BIAR NGE-ZOOM FULL LAYAR */
     }
 
     .domain-text {
       position: absolute;
-      bottom: 15%;
-      /* Atur aja posisinya, misal 15% dari bawah */
+      bottom: 20%;
       font-family: 'Bebas Neue', sans-serif;
       color: white;
-      font-size: 2.5rem;
-      letter-spacing: 8px;
-      text-shadow: 0 0 20px #fff, 0 0 10px #000;
-      /* Tambahin shadow item dikit biar kebaca walau videonya terang */
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      letter-spacing: 10px;
+      text-shadow: 0 0 15px #fff;
       opacity: 0;
-      z-index: 10;
-      /* INI KUNCINYA BIAR TEKSNYA DI DEPAN VIDEO */
-      animation: textAppear 2s ease forwards;
-      /* FIX HP: Paksa teks ditarik ke depan */
-      transform: translateZ(10px);
-      -webkit-transform: translateZ(10px);
+      animation: fadeInText 1.5s ease forwards 1s;
     }
 
-    @keyframes textAppear {
-      from {
-        opacity: 0;
-        transform: translateZ(10px) translateY(0);
-      }
+    @keyframes fadeInText {
       to {
         opacity: 1;
-        transform: translateZ(10px) translateY(-20px);
+        transform: translateY(-20px);
       }
     }
 
     .white-flash {
       position: fixed;
+      /* Ganti ke fixed */
       top: 0;
       left: 0;
       width: 100vw;
+      /* Lebar full layar HP */
       height: 100vh;
+      /* Tinggi full layar HP */
       background: #ffffff;
       opacity: 0;
-      z-index: 9999999;
-      /* Z-index paling dewa */
+      z-index: 999999;
+      /* Tambahin z-index super gede */
       pointer-events: none;
-      will-change: opacity;
-      /* KUNCI BUAT ANDROID: Biar animasinya lancar */
     }
 
     .flash-active {
@@ -1134,13 +1125,12 @@
 <body>
 
   <div id="splash-screen">
+    <div class="white-flash"></div>
     <video autoplay muted playsinline webkit-playsinline id="gojo-video">
       <source src="gojo.mp4" type="video/mp4">
     </video>
     <div class="domain-text">DOMAIN : ANTI WACANA</div>
   </div>
-  
-  <div class="white-flash"></div>
 
   <canvas id="particles"></canvas>
 
@@ -1688,7 +1678,7 @@ Makan Bakso</textarea>
           mainPage.style.opacity = '1';
           document.body.style.overflow = 'auto';
         }, 600);
-      }, 1900); // <--- UBAH ANGKA INI kalau mau lebih lama (misal 1500 atau 2000)
+      }, 2500); // <--- UBAH ANGKA INI kalau mau lebih lama (misal 1500 atau 2000)
     }
 
     // Berhenti saat video selesai
