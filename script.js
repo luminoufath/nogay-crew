@@ -302,7 +302,7 @@
       const content = document.getElementById('detail-content');
 
       // Aktifkan transisi zoom dan blur ke background
-      document.body.classList.add('domain-expanding');
+      //document.body.classList.add('domain-expanding');
 
       content.innerHTML = `
       <div class="detail-img-side">
@@ -351,7 +351,7 @@
 
     function closeDetail() {
       // Matikan efek transisi zoom dan blur
-      document.body.classList.remove('domain-expanding');
+      //document.body.classList.remove('domain-expanding');
 
       document.getElementById('detail-page').classList.remove('active');
       document.getElementById('back-btn').classList.remove('visible');
