@@ -17,6 +17,7 @@
     }
 
     :root {
+      /* Tema Default: Emas & Hitam */
       --gold: #f0b429;
       --gold2: #ffd166;
       --dark: #080c10;
@@ -26,6 +27,22 @@
       --border: rgba(240, 180, 41, 0.18);
       --text: #e8e8f0;
       --sub: #8892a4;
+      --cyan: #00f2ff;
+      /* Warna khusus Scanner */
+    }
+
+    /* ─── TEMA DOMAIN EXPANSION (GOJO MODE) ─── */
+    body.gojo-mode {
+      /* Tema Berubah Menjadi Biru Neon & Ungu */
+      --gold: #00f2ff;
+      --gold2: #7b2cbf;
+      --border: rgba(0, 242, 255, 0.3);
+      --dark: #050510;
+    }
+
+    /* Mengubah warna partikel emas jadi biru/ungu pakai filter */
+    body.gojo-mode #particles {
+      filter: hue-rotate(170deg) brightness(1.3);
     }
 
     html {
@@ -38,6 +55,7 @@
       font-family: 'Outfit', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
+      transition: background 1s ease;
     }
 
     /* ─── CANVAS PARTICLE BG ─── */
@@ -46,6 +64,7 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
+      transition: filter 1s ease;
     }
 
     /* ─── NOISE OVERLAY ─── */
@@ -59,7 +78,7 @@
       z-index: 1;
     }
 
-    /* ─── MAIN PAGE ─── */
+    /* ─── MAIN PAGE (Domain Expansion Trigger untuk Kartu) ─── */
     #main-page {
       position: relative;
       z-index: 2;
@@ -68,7 +87,16 @@
       flex-direction: column;
       align-items: center;
       padding: 0 20px 60px;
-      transition: opacity 0.5s, transform 0.5s;
+      /* Transisi untuk efek ditarik masuk */
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s;
+    }
+
+    /* CSS Fitur 3: Efek Domain Expansion Transition saat buka profil */
+    .domain-expanding #main-page {
+      transform: scale(1.4);
+      filter: blur(20px);
+      opacity: 0;
+      pointer-events: none;
     }
 
     /* ─── HERO HEADER ─── */
@@ -92,6 +120,7 @@
       backdrop-filter: blur(10px);
       background: rgba(240, 180, 41, 0.06);
       animation: fadeDown 0.8s ease both;
+      transition: color 1s, border-color 1s;
     }
 
     .hero h1 {
@@ -99,13 +128,28 @@
       font-size: clamp(5rem, 14vw, 11rem);
       letter-spacing: 0.05em;
       line-height: 0.9;
-      background: linear-gradient(135deg, #ffffff 0%, var(--gold) 50%, #ff9f1c 100%);
+      background: linear-gradient(135deg, #ffffff 0%, var(--gold) 50%, var(--gold2) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       animation: fadeUp 0.9s ease 0.1s both;
       position: relative;
+      transition: background 1s;
+      filter: drop-shadow(0 0 25px rgba(240, 180, 41, 0.4));
+      animation: fadeUp 0.9s ease 0.1s both, textGlow 3s infinite alternate ease-in-out 1s;
     }
+
+    /* Animasi biar shadow-nya hidup */
+    @keyframes textGlow {
+      0% {
+        filter: drop-shadow(0 0 15px rgba(240, 180, 41, 0.2));
+      }
+
+      100% {
+        filter: drop-shadow(0 0 35px rgba(240, 180, 41, 0.6));
+      }
+    }
+
 
     .hero h1::after {
       content: 'WACANA';
@@ -129,12 +173,24 @@
     }
 
     .hero-line {
-      width: 80px;
+      width: 120px;
+      /* Agak panjangin dikit */
       height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      background: linear-gradient(90deg, transparent, var(--gold), #fff, var(--gold), transparent);
       margin: 24px auto 0;
-      animation: scaleX 1s ease 0.4s both;
+      animation: scaleX 1s ease 0.4s both, lineShimmer 3s infinite linear;
       transform-origin: center;
+      box-shadow: 0 0 10px rgba(240, 180, 41, 0.5);
+    }
+
+    @keyframes lineShimmer {
+      0% {
+        background-position: -200% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
     }
 
     /* ─── MEMBERS GRID ─── */
@@ -204,10 +260,20 @@
       z-index: 1;
     }
 
+    /* Efek Glow di Gojo Mode */
+    body.gojo-mode .card::before {
+      background: linear-gradient(135deg, rgba(123, 44, 191, 0.15) 0%, transparent 60%);
+    }
+
     .card:hover {
       transform: translateY(-10px) scale(1.03);
       box-shadow: 0 24px 60px rgba(240, 180, 41, 0.2), 0 0 0 1px rgba(240, 180, 41, 0.3);
       border-color: rgba(240, 180, 41, 0.4);
+    }
+
+    body.gojo-mode .card:hover {
+      box-shadow: 0 24px 60px rgba(0, 242, 255, 0.2), 0 0 0 1px rgba(123, 44, 191, 0.5);
+      border-color: rgba(0, 242, 255, 0.5);
     }
 
     .card:hover::before {
@@ -1043,10 +1109,10 @@
       inset: 0;
       background: #000;
       z-index: 9999;
+      /* Posisi tengah-tengah */
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
     }
 
     #gojo-video {
@@ -1054,26 +1120,29 @@
       top: 0;
       left: 0;
       width: 100vw;
-      /* Maksa lebar mentok kiri-kanan layar */
       height: 100vh;
-      /* Maksa tinggi mentok atas-bawah layar */
       object-fit: cover;
-      /* INI KUNCINYA BIAR NGE-ZOOM FULL LAYAR */
+      z-index: 1;
+      /* KUNCI BUAT ANDROID: Paksa video ada di lapisan bawah */
     }
 
     .domain-text {
       position: absolute;
-      bottom: 20%;
+      bottom: 15%;
+      /* Atur aja posisinya, misal 15% dari bawah */
       font-family: 'Bebas Neue', sans-serif;
       color: white;
-      font-size: clamp(1.5rem, 5vw, 2.5rem);
-      letter-spacing: 10px;
-      text-shadow: 0 0 15px #fff;
+      font-size: 2.5rem;
+      letter-spacing: 8px;
+      text-shadow: 0 0 20px #fff, 0 0 10px #000;
+      /* Tambahin shadow item dikit biar kebaca walau videonya terang */
       opacity: 0;
-      animation: fadeInText 1.5s ease forwards 1s;
+      z-index: 10;
+      /* INI KUNCINYA BIAR TEKSNYA DI DEPAN VIDEO */
+      animation: textAppear 2s ease forwards;
     }
 
-    @keyframes fadeInText {
+    @keyframes textAppear {
       to {
         opacity: 1;
         transform: translateY(-20px);
@@ -1082,18 +1151,17 @@
 
     .white-flash {
       position: fixed;
-      /* Ganti ke fixed */
       top: 0;
       left: 0;
       width: 100vw;
-      /* Lebar full layar HP */
       height: 100vh;
-      /* Tinggi full layar HP */
       background: #ffffff;
       opacity: 0;
-      z-index: 999999;
-      /* Tambahin z-index super gede */
+      z-index: 9999999;
+      /* Z-index paling dewa */
       pointer-events: none;
+      will-change: opacity;
+      /* KUNCI BUAT ANDROID: Biar animasinya lancar */
     }
 
     .flash-active {
@@ -1119,6 +1187,586 @@
       opacity: 0;
       pointer-events: none;
     }
+
+    /* ─── FITUR 1: BIOMETRIC SCANNER (Layar Hitam Dewa) ─── */
+    #scanner-screen {
+      position: fixed;
+      inset: 0;
+      background: #04080c;
+      z-index: 9000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .scanner-grid {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(0, 242, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 255, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 0;
+    }
+
+    .cyber-scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(0, 242, 255, 0.5);
+      box-shadow: 0 0 15px rgba(0, 242, 255, 1);
+      animation: scanline-move 4s linear infinite;
+      z-index: 1;
+      opacity: 0.8;
+    }
+
+    @keyframes scanline-move {
+      0% {
+        top: -5%;
+      }
+
+      100% {
+        top: 105%;
+      }
+    }
+
+    .cyber-corner {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border: 2px solid var(--cyan);
+      opacity: 0.4;
+      z-index: 1;
+    }
+
+    .corner-tl {
+      top: 30px;
+      left: 30px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .corner-tr {
+      top: 30px;
+      right: 30px;
+      border-left: none;
+      border-bottom: none;
+    }
+
+    .corner-bl {
+      bottom: 30px;
+      left: 30px;
+      border-right: none;
+      border-top: none;
+    }
+
+    .corner-br {
+      bottom: 30px;
+      right: 30px;
+      border-left: none;
+      border-top: none;
+    }
+
+    .terminal-log {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      font-family: monospace;
+      color: var(--cyan);
+      font-size: 0.75rem;
+      opacity: 0.6;
+      text-align: left;
+      line-height: 1.6;
+      z-index: 1;
+    }
+
+    .terminal-top {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      font-family: monospace;
+      color: var(--cyan);
+      font-size: 0.75rem;
+      opacity: 0.6;
+      text-align: right;
+      line-height: 1.6;
+      z-index: 1;
+    }
+
+    .scanner-box {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      border: 1px solid rgba(0, 242, 255, 0.3);
+      background: rgba(0, 242, 255, 0.05);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.2s, box-shadow 0.3s, border-color 0.3s;
+      z-index: 2;
+    }
+
+    .scanner-box::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
+      z-index: -1;
+      animation: boxPulse 2s infinite alternate;
+    }
+
+    @keyframes boxPulse {
+      0% {
+        box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+      }
+
+      100% {
+        box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+      }
+    }
+
+    .fingerprint-icon {
+      width: 90px;
+      height: 90px;
+      fill: var(--cyan);
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+
+    .scanning .fingerprint-icon {
+      opacity: 1;
+      filter: drop-shadow(0 0 15px var(--cyan));
+      animation: scanPulse 1s infinite;
+    }
+
+    .scanning {
+      border-color: var(--cyan);
+      box-shadow: 0 0 30px rgba(0, 242, 255, 0.5);
+    }
+
+    @keyframes scanPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .scan-progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0%;
+      background: rgba(0, 242, 255, 0.25);
+      border-radius: 0 0 18px 18px;
+      transition: height 0.1s linear;
+    }
+
+    .scanner-text {
+      margin-top: 35px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 4px;
+      z-index: 2;
+      text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+    }
+
+    @media (max-width: 768px) {
+
+      .terminal-log,
+      .terminal-top {
+        font-size: 0.6rem;
+      }
+
+      .terminal-log {
+        bottom: 20px;
+        left: 20px;
+      }
+
+      .terminal-top {
+        top: 20px;
+        right: 20px;
+      }
+    }
+
+    /* ─── FITUR BARU: TOMBOL MATA KIRI ATAS (DOMAIN EXPANSION) ─── */
+    .domain-toggle-btn {
+      position: fixed;
+      top: 30px;
+      /* Posisi Kiri Atas */
+      left: 30px;
+      /* Posisi Kiri Atas */
+      z-index: 150;
+      background: rgba(240, 180, 41, 0.06);
+      border: 1px solid var(--border);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      /* Bentuk Bulat */
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+      transition: all 0.4s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 15px rgba(240, 180, 41, 0.1);
+    }
+
+    .domain-toggle-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--gold);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      transition: all 0.4s ease;
+    }
+
+    .domain-toggle-btn:hover {
+      background: rgba(240, 180, 41, 0.2);
+      box-shadow: 0 0 20px var(--gold);
+      transform: scale(1.05);
+    }
+
+    /* Jika mode gojo nyala, tombol berubah warna Neon */
+    body.gojo-mode .domain-toggle-btn {
+      border-color: #00f2ff;
+      background: rgba(0, 242, 255, 0.06);
+      box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+    }
+
+    body.gojo-mode .domain-toggle-btn svg {
+      stroke: #00f2ff;
+    }
+
+    body.gojo-mode .domain-toggle-btn:hover {
+      background: rgba(0, 242, 255, 0.2);
+      box-shadow: 0 0 25px #00f2ff;
+    }
+
+    /* Layar Hitam Animasi Domain */
+    #domain-anim-overlay {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    #domain-anim-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .domain-anim-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: #fff;
+      letter-spacing: 15px;
+      text-align: center;
+      text-shadow: 0 0 20px #00f2ff, 0 0 40px #7b2cbf;
+      transform: scale(0.8);
+      opacity: 0;
+      filter: blur(10px);
+    }
+
+    #domain-anim-overlay.active .domain-anim-text {
+      animation: domainPop 2.5s forwards ease-in-out;
+    }
+
+    .domain-anim-sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 8px;
+      color: #00f2ff;
+      margin-top: 10px;
+      opacity: 0;
+    }
+
+    #domain-anim-overlay.active .domain-anim-sub {
+      animation: fadeInSub 2.5s forwards ease-in-out;
+    }
+
+    @keyframes domainPop {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+        filter: blur(20px);
+      }
+
+      40% {
+        transform: scale(1.1);
+        opacity: 1;
+        filter: blur(0px);
+      }
+
+      80% {
+        transform: scale(1.2);
+        opacity: 1;
+        filter: blur(2px);
+      }
+
+      100% {
+        transform: scale(3);
+        opacity: 0;
+        filter: blur(30px);
+      }
+    }
+
+    @keyframes fadeInSub {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      40% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      80% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    /* ─── FITUR KOCAK: PENUTUP MATA GOJO (BLINDFOLD) ─── */
+
+    /* 1. Penutup Mata di Kartu Depan */
+    .card-img-wrap::before {
+      content: '';
+      position: absolute;
+      top: 28%;
+      /* Posisi rata-rata mata di foto potrait */
+      left: -10%;
+      width: 120%;
+      height: 45px;
+      background: linear-gradient(180deg, #2a2a2a 0%, #050505 40%, #000000 100%);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.9), 0 2px 5px rgba(0, 242, 255, 0.2);
+      transform: rotate(-6deg) translateY(-30px);
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 5;
+      pointer-events: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* 2. Penutup Mata di Halaman Detail/Profil */
+    .detail-img-frame::after {
+      content: '';
+      position: absolute;
+      top: 30%;
+      left: -10%;
+      width: 120%;
+      height: 70px;
+      /* Lebih tebal karena fotonya lebih besar */
+      background: linear-gradient(180deg, #2a2a2a 0%, #050505 40%, #000000 100%);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.9);
+      transform: rotate(-5deg) translateY(-40px);
+      opacity: 0;
+      transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 5;
+      pointer-events: none;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* 3. MUNCULIN PENUTUP MATA PAS DOMAIN EXPANSION NYALA! */
+    body.gojo-mode .card-img-wrap::before,
+    body.gojo-mode .detail-img-frame::after {
+      opacity: 1;
+      transform: rotate(-6deg) translateY(0);
+      /* Efek turun kayak dipasangin */
+    }
+
+    /* Efek Aura Emas di Background */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      width: 70vw;
+      height: 70vw;
+      max-width: 800px;
+      max-height: 800px;
+      background: radial-gradient(circle, rgba(240, 180, 41, 0.1) 0%, transparent 60%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1;
+      /* Di atas particle tapi di bawah konten */
+      animation: auraPulse 6s infinite alternate ease-in-out;
+    }
+
+    @keyframes auraPulse {
+      0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+      }
+    }
+
+    /* =========================================================
+       UPGRADE VISUAL SAAT BERADA DI DALAM DOMAIN EXPANSION 
+       ========================================================= */
+
+    /* 1. Efek Background Pusaran (Vortex) khas Infinite Void */
+    /* 1. Efek Background Pusaran (Vortex) DI PERBAIKI */
+    body.gojo-mode #main-page::before {
+      content: '';
+      position: fixed;
+      top: -50vh;
+      left: -50vw;
+      width: 200vw;
+      height: 200vh;
+      /* Warnanya diterangin dikit biar lebih nonjol */
+      background: repeating-conic-gradient(from 0deg,
+          rgba(0, 242, 255, 0.08) 0deg 5deg,
+          transparent 5deg 10deg,
+          rgba(123, 44, 191, 0.06) 10deg 15deg,
+          transparent 15deg 20deg);
+      /* Animasi dipercepat dikit jadi 20s biar perputarannya kerasa */
+      animation: spinVoid 20s linear infinite;
+
+      /* Posisinya ditaruh tepat di belakang konten web, tapi di atas background hitam */
+      z-index: -1;
+      pointer-events: none;
+
+      /* Tambahan efek mask biar pusarannya halus di tengah & memudar di pinggir layar */
+      -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 80%);
+      mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 80%);
+    }
+
+    @keyframes spinVoid {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Bikin ujung-ujung layar jadi makin gelap (Vignette ekstrim) */
+    body.gojo-mode::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.9) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* 2. Kartu Member Melayang Sendiri (Anti-Gravitasi) */
+    body.gojo-mode .card {
+      border-color: rgba(0, 242, 255, 0.5);
+      box-shadow: 0 0 30px rgba(123, 44, 191, 0.3), inset 0 0 15px rgba(0, 242, 255, 0.1);
+      /* Animasi melayang tanpa henti */
+      animation: antiGravity 3.5s ease-in-out infinite alternate !important;
+    }
+
+    /* Bikin delay biar mereka melayangnya nggak barengan */
+    body.gojo-mode .card:nth-child(1) {
+      animation-delay: 0s !important;
+    }
+
+    body.gojo-mode .card:nth-child(2) {
+      animation-delay: 0.7s !important;
+    }
+
+    body.gojo-mode .card:nth-child(3) {
+      animation-delay: 1.4s !important;
+    }
+
+    body.gojo-mode .card:nth-child(4) {
+      animation-delay: 2.1s !important;
+    }
+
+    body.gojo-mode .card:nth-child(5) {
+      animation-delay: 2.8s !important;
+    }
+
+    body.gojo-mode .card:nth-child(6) {
+      animation-delay: 3.5s !important;
+    }
+
+    @keyframes antiGravity {
+      0% {
+        transform: translateY(0px);
+      }
+
+      100% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Kalau di-hover saat melayang, glow-nya makin gila */
+    body.gojo-mode .card:hover {
+      box-shadow: 0 0 50px rgba(0, 242, 255, 0.6), inset 0 0 20px rgba(123, 44, 191, 0.8) !important;
+      border-color: #00f2ff !important;
+      transform: translateY(-25px) scale(1.05) !important;
+      /* Efek ditarik lebih kuat */
+    }
+
+    /* 3. Teks Utama (WACANA) Kena Efek Glitch & Glow Extrim */
+    body.gojo-mode .hero h1 {
+      text-shadow: 0 0 20px rgba(0, 242, 255, 0.8), 0 0 40px rgba(123, 44, 191, 0.8);
+      animation: voidGlitch 3s infinite;
+    }
+
+    @keyframes voidGlitch {
+
+      0%,
+      100% {
+        transform: translate(0);
+      }
+
+      10% {
+        transform: translate(-3px, 2px);
+        text-shadow: -3px 0 #ff003c, 3px 0 #00f2ff;
+      }
+
+      12% {
+        transform: translate(0);
+        text-shadow: 0 0 30px rgba(0, 242, 255, 0.8);
+      }
+
+      70% {
+        transform: translate(2px, -2px);
+        text-shadow: 3px 0 #ff003c, -3px 0 #00f2ff;
+      }
+
+      72% {
+        transform: translate(0);
+        text-shadow: 0 0 50px rgba(123, 44, 191, 0.9);
+      }
+    }
   </style>
 </head>
 
@@ -1130,6 +1778,49 @@
       <source src="gojo.mp4" type="video/mp4">
     </video>
     <div class="domain-text">DOMAIN : ANTI WACANA</div>
+  </div>
+
+  <div id="scanner-screen">
+    <div class="scanner-grid"></div>
+    <div class="cyber-scanline"></div>
+
+    <div class="cyber-corner corner-tl"></div>
+    <div class="cyber-corner corner-tr"></div>
+    <div class="cyber-corner corner-bl"></div>
+    <div class="cyber-corner corner-br"></div>
+
+    <div class="terminal-top">
+      NODE: PRWK-01 // WACANA<br>
+      SECURE_CONN: ESTABLISHED<br>
+      STATUS: STANDBY
+    </div>
+    <div class="terminal-log">
+      > SYS.CORE.INIT... OK<br>
+      > DB_DECRYPT... PENDING<br>
+      > AWAITING_AUTH...
+    </div>
+
+    <div class="scanner-box" id="scan-trigger">
+      <div class="scan-progress-bar" id="scan-progress"></div>
+      <svg class="fingerprint-icon" viewBox="0 0 24 24">
+        <path
+          d="M12,1C5.93,1,1,5.93,1,12c0,2.19,0.66,4.22,1.78,5.91l0.22,0.34c0.16,0.25,0.48,0.32,0.73,0.16c0.25-0.16,0.32-0.48,0.16-0.73l-0.22-0.34 C2.6,15.82,2,14,2,12c0-5.52,4.48-10,10-10s10,4.48,10,10c0,1.52-0.34,2.97-0.96,4.26c-0.12,0.27,0,0.58,0.27,0.71 c0.27,0.12,0.58,0,0.71-0.27C22.62,15.3,23,13.7,23,12C23,5.93,18.07,1,12,1z M12,4c-4.41,0-8,3.59-8,8c0,1.26,0.3,2.44,0.82,3.5 c0.12,0.26,0.43,0.38,0.7,0.26c0.26-0.12,0.38-0.43,0.26-0.7C5.36,14.23,5,13.16,5,12c0-3.86,3.14-7,7-7s7,3.14,7,7 c0,0.68-0.1,1.34-0.28,1.96c-0.08,0.28,0.08,0.58,0.37,0.66c0.28,0.08,0.58-0.08,0.66-0.37C19.92,13.55,20,12.79,20,12 C20,7.59,16.41,4,12,4z M12,7c-2.76,0-5,2.24-5,5c0,0.47,0.07,0.92,0.19,1.35c0.08,0.28,0.37,0.45,0.66,0.37 c0.28-0.08,0.45-0.37,0.37-0.66C8.1,12.71,8,12.37,8,12c0-2.21,1.79-4,4-4s4,1.79,4,4c0,0.17-0.01,0.34-0.04,0.51 c-0.05,0.29,0.15,0.56,0.44,0.61c0.29,0.05,0.56-0.15,0.61-0.44C16.99,12.45,17,12.23,17,12C17,9.24,14.76,7,12,7z" />
+      </svg>
+    </div>
+
+    <div class="scanner-text" id="scan-status">HOLD TO ACCESS</div>
+  </div>
+
+  <button class="domain-toggle-btn" onclick="triggerDomainExpansion()" id="domain-btn" title="Domain Expansion">
+    <svg viewBox="0 0 24 24">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+      <circle cx="12" cy="12" r="3"></circle>
+    </svg>
+  </button>
+
+  <div id="domain-anim-overlay">
+    <div class="domain-anim-text">DOMAIN EXPANSION</div>
+    <div class="domain-anim-sub">INFINITE VOID</div>
   </div>
 
   <canvas id="particles"></canvas>
@@ -1201,7 +1892,7 @@ Makan Bakso</textarea>
       </div>
 
       <button id="spin-btn" onclick="spin()">SPIN SEKARANG</button>
-      <div id="roulette-result">Terpilih: <span>-</span></div>
+      <div id="roulette-result">Terpilih: <br><span>-</span></div>
     </div>
   </div>
 
@@ -1298,12 +1989,20 @@ Makan Bakso</textarea>
       document.getElementById('gallery-page').classList.add('active');
       document.getElementById('main-page').style.opacity = '0';
       document.getElementById('main-page').style.pointerEvents = 'none';
+
+      // Sembunyikan Tombol Mata agar tidak bentrok dengan tombol Back
+      document.getElementById('domain-btn').style.opacity = '0';
+      document.getElementById('domain-btn').style.pointerEvents = 'none';
     }
 
     function closeGallery() {
       document.getElementById('gallery-page').classList.remove('active');
       document.getElementById('main-page').style.opacity = '1';
       document.getElementById('main-page').style.pointerEvents = 'all';
+
+      // Munculin lagi Tombol Mata
+      document.getElementById('domain-btn').style.opacity = '1';
+      document.getElementById('domain-btn').style.pointerEvents = 'all';
     }
 
     /* ─── ROULETTE LOGIC ─── */
@@ -1320,6 +2019,10 @@ Makan Bakso</textarea>
       document.getElementById('roulette-page').classList.add('active');
       document.getElementById('main-page').style.opacity = '0';
       document.getElementById('main-page').style.pointerEvents = 'none';
+
+      // Sembunyikan Tombol Mata
+      document.getElementById('domain-btn').style.opacity = '0';
+      document.getElementById('domain-btn').style.pointerEvents = 'none';
       drawWheel();
     }
 
@@ -1327,6 +2030,10 @@ Makan Bakso</textarea>
       document.getElementById('roulette-page').classList.remove('active');
       document.getElementById('main-page').style.opacity = '1';
       document.getElementById('main-page').style.pointerEvents = 'all';
+
+      // Munculin lagi Tombol Mata
+      document.getElementById('domain-btn').style.opacity = '1';
+      document.getElementById('domain-btn').style.pointerEvents = 'all';
     }
 
     function getOptions() {
@@ -1348,6 +2055,11 @@ Makan Bakso</textarea>
 
         ctx.fillStyle = i % 2 === 0 ? "#141e2e" : "#f0b429";
 
+        // Ubah warna roda juga kalau lagi mode Gojo
+        if (document.body.classList.contains('gojo-mode')) {
+          ctx.fillStyle = i % 2 === 0 ? "#050510" : "#00f2ff";
+        }
+
         ctx.beginPath();
         ctx.arc(150, 150, 145, angle, angle + arc, false);
         ctx.arc(150, 150, 0, angle + arc, angle, true);
@@ -1355,6 +2067,11 @@ Makan Bakso</textarea>
 
         ctx.save();
         ctx.fillStyle = i % 2 === 0 ? "#f0b429" : "#141e2e";
+
+        if (document.body.classList.contains('gojo-mode')) {
+          ctx.fillStyle = i % 2 === 0 ? "#00f2ff" : "#050510";
+        }
+
         ctx.translate(150 + Math.cos(angle + arc / 2) * 90, 150 + Math.sin(angle + arc / 2) * 90);
         ctx.rotate(angle + arc / 2 + Math.PI / 2);
 
@@ -1385,7 +2102,7 @@ Makan Bakso</textarea>
 
       const resultDiv = document.getElementById('roulette-result');
       resultDiv.style.display = 'block';
-      resultDiv.innerHTML = `Terpilih: <br><span>${options[index]}</span>`;
+      resultDiv.innerHTML = `Terpilih: <br><span style="color:var(--gold);">${options[index]}</span>`;
 
       document.getElementById('spin-btn').disabled = false;
       document.getElementById('spin-btn').innerText = "SPIN LAGI";
@@ -1512,6 +2229,9 @@ Makan Bakso</textarea>
       const m = members[index];
       const content = document.getElementById('detail-content');
 
+      // Aktifkan transisi zoom dan blur ke background
+      document.body.classList.add('domain-expanding');
+
       content.innerHTML = `
       <div class="detail-img-side">
         <div class="detail-img-frame">
@@ -1551,16 +2271,23 @@ Makan Bakso</textarea>
       document.getElementById('detail-page').classList.add('active');
       document.getElementById('back-btn').classList.add('visible');
       document.getElementById('nav-dots').classList.add('visible');
-      document.getElementById('main-page').style.opacity = '0';
-      document.getElementById('main-page').style.pointerEvents = 'none';
+
+      // Sembunyikan Tombol Mata
+      document.getElementById('domain-btn').style.opacity = '0';
+      document.getElementById('domain-btn').style.pointerEvents = 'none';
     }
 
     function closeDetail() {
+      // Matikan efek transisi zoom dan blur
+      document.body.classList.remove('domain-expanding');
+
       document.getElementById('detail-page').classList.remove('active');
       document.getElementById('back-btn').classList.remove('visible');
       document.getElementById('nav-dots').classList.remove('visible');
-      document.getElementById('main-page').style.opacity = '1';
-      document.getElementById('main-page').style.pointerEvents = 'all';
+
+      // Munculin lagi Tombol Mata
+      document.getElementById('domain-btn').style.opacity = '1';
+      document.getElementById('domain-btn').style.pointerEvents = 'all';
     }
 
     // Keyboard nav
@@ -1656,29 +2383,37 @@ Makan Bakso</textarea>
       loop();
     })();
 
-    /* ─── LOGIC OPENING GOJO ─── */
+    /* ─── LOGIC OPENING GOJO & SCANNER (FITUR 1) ─── */
     const splashVideo = document.getElementById('gojo-video');
     const splashScreen = document.getElementById('splash-screen');
     const whiteFlash = document.querySelector('.white-flash');
     const mainPage = document.getElementById('main-page');
+
+    // Variabel buat Scanner
+    const scannerScreen = document.getElementById('scanner-screen');
+    const scanTrigger = document.getElementById('scan-trigger');
+    const scanProgress = document.getElementById('scan-progress');
+    const scanStatus = document.getElementById('scan-status');
+
+    let scanInterval;
+    let progress = 0;
 
     // Sembunyikan main page saat awal
     mainPage.classList.add('hidden-opening');
     document.body.style.overflow = 'hidden';
 
     function endOpening() {
-      // Kita kasih delay 1 detik (1000ms) setelah video beres 
-      // supaya omongan Gojo selesai dulu baru meledak putih
       setTimeout(() => {
         whiteFlash.classList.add('flash-active');
 
         setTimeout(() => {
           splashScreen.style.display = 'none';
-          mainPage.classList.remove('hidden-opening');
-          mainPage.style.opacity = '1';
-          document.body.style.overflow = 'auto';
+
+          // Alih-alih masuk ke mainPage, kita tampilkan Biometric Scanner
+          scannerScreen.style.display = 'flex';
+
         }, 600);
-      }, 2500); // <--- UBAH ANGKA INI kalau mau lebih lama (misal 1500 atau 2000)
+      }, 2500);
     }
 
     // Berhenti saat video selesai
@@ -1692,6 +2427,98 @@ Makan Bakso</textarea>
         endOpening();
       }
     }, 6000);
+
+    /* ─── FUNGSI BIOMETRIC SCANNER (FITUR 1) ─── */
+    function startScan() {
+      scanTrigger.classList.add('scanning');
+      scanStatus.innerText = "DECRYPTING...";
+      scanStatus.style.color = "var(--cyan)";
+
+      scanInterval = setInterval(() => {
+        progress += 2;
+        scanProgress.style.height = progress + "%";
+
+        if (progress >= 100) {
+          clearInterval(scanInterval);
+          grantAccess();
+        }
+      }, 30);
+    }
+
+    function stopScan() {
+      if (progress < 100) {
+        clearInterval(scanInterval);
+        scanTrigger.classList.remove('scanning');
+        progress = 0;
+        scanProgress.style.height = "0%";
+        scanStatus.innerText = "ACCESS DENIED! HOLD TO SCAN";
+        scanStatus.style.color = "red";
+      }
+    }
+
+    function grantAccess() {
+      scanStatus.innerText = "ACCESS GRANTED";
+      scanStatus.style.color = "#00ff00";
+      scanTrigger.style.borderColor = "#00ff00";
+
+      // Efek transisi masuk ke web utama
+      setTimeout(() => {
+        scannerScreen.style.transition = "0.8s";
+        scannerScreen.style.opacity = "0";
+        scannerScreen.style.transform = "scale(1.2)";
+
+        setTimeout(() => {
+          scannerScreen.style.display = "none";
+          mainPage.classList.remove('hidden-opening');
+          mainPage.style.opacity = "1";
+          document.body.style.overflow = "auto";
+        }, 800);
+      }, 500);
+    }
+
+    // Event Listener buat nahan tombol (Klik Mouse & Sentuh Layar HP)
+    scanTrigger.addEventListener('mousedown', startScan);
+    window.addEventListener('mouseup', stopScan);
+    scanTrigger.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      startScan();
+    });
+    window.addEventListener('touchend', stopScan);
+
+    /* ─── LOGIC DOMAIN EXPANSION TOGGLE KIRI ATAS (FITUR 3) ─── */
+    function triggerDomainExpansion() {
+      const overlay = document.getElementById('domain-anim-overlay');
+      const isGojoMode = document.body.classList.contains('gojo-mode');
+
+      if (!isGojoMode) {
+        // MENGAKTIFKAN DOMAIN EXPANSION
+        overlay.classList.add('active'); // Munculin layar hitam animasi
+
+        // Ganti warna saat animasi mencapai puncak ledakan (sekitar 1.8 detik)
+        setTimeout(() => {
+          document.body.classList.add('gojo-mode');
+
+          // Kalau roulette lagi kebuka, redraw biar warnanya ikut ganti
+          if (document.getElementById('roulette-page').classList.contains('active')) {
+            drawWheel();
+          }
+        }, 1800);
+
+        // Hilangkan overlay animasi
+        setTimeout(() => {
+          overlay.classList.remove('active');
+        }, 3000);
+
+      } else {
+        // MENUTUP DOMAIN EXPANSION (Kembali Normal)
+        document.body.classList.remove('gojo-mode');
+
+        // Redraw roulette
+        if (document.getElementById('roulette-page').classList.contains('active')) {
+          drawWheel();
+        }
+      }
+    }
 
   </script>
 </body>
