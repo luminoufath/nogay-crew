@@ -1770,45 +1770,4 @@
       }
     }
 
-    /* ─── OPTIMASI KHUSUS HP (Anti-Lag) ─── */
-    @media (max-width: 768px) {
-
-      /* 1. Matiin efek Blur yang berat banget di HP */
-      #main-page.hidden-opening {
-        filter: none !important;
-        /* Blur dihapus di HP biar enteng */
-        transform: scale(1.1) translateY(20px);
-      }
-
-      /* 2. Pusaran kosmik dibikin lebih statis / lambat */
-      body.gojo-mode #main-page::before {
-        animation: spinVoid 60s linear infinite;
-        /* Lambatin banget biar GPU santai */
-        background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 70%);
-        /* Ganti ke gradient biasa yang enteng */
-      }
-
-      /* 3. Kurangi jarak melayang kartu biar ga berat kalkulasi koordinatnya */
-      @keyframes antiGravity {
-        0% {
-          transform: translateY(0px);
-        }
-
-        100% {
-          transform: translateY(-8px);
-        }
-      }
-
-      /* 4. Matiin animasi glitch teks di HP kalau masih kerasa berat */
-      body.gojo-mode .hero h1 {
-        animation: none;
-        text-shadow: 0 0 15px rgba(0, 242, 255, 0.7);
-      }
-    }
-
-    /* Trik rahasia biar browser tau elemen ini bakal gerak (Hardware Acceleration) */
-    .card,
-    .hero h1,
-    #main-page::before {
-      will-change: transform, opacity;
-    }
+   
